@@ -1,6 +1,6 @@
 # 🟢 Valinta
 
-> *Valinta* a simple Rust crate 🦀 for multiple selection in the terminal
+> *Valinta* a zero config Rust crate 🦀 for multiple selection in the terminal
 
 ## Installation
 

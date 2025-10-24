@@ -7,11 +7,14 @@ use crate::modules::display::display;
 use crate::modules::error::{Result, ValintaError};
 use crate::modules::filter::filter;
 
+use crate::modules::terminal::get_cols;
+
 pub fn multi_select<T: Display + Debug + Clone>(things: &[T]) -> Result<Vec<T>> {
     if things.is_empty() {
         return Err(ValintaError::Custom("Input is empty".into()));
     }
-
+    let term_width = get_cols();
+    dbg!(term_width);
     let mut lines = things
         .iter()
         .map(|thing| Line::new(thing.clone()))

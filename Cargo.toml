@@ -5,3 +5,5 @@ edition = "2024"
 
 [dependencies]
 console = "0.16.1"
+terminal_size = "0.4.3"
+unicode-width = "0.2.2"
