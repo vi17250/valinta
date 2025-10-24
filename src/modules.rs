@@ -1,5 +1,5 @@
 mod def;
 mod display;
-mod error;
+pub mod error;
 mod filter;
 pub mod multi_select;
