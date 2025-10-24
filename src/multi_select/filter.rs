@@ -2,10 +2,10 @@ use std::fmt::Display;
 
 use crate::multi_select::def::Line;
 
-pub fn filter<T: Display + Clone>(lines: &Vec<Line<T>>) -> Vec<T> {
+pub fn filter<T: Display + Clone>(lines: &[Line<T>]) -> Vec<T> {
     let mut result: Vec<T> = Vec::new();
     lines
-        .into_iter()
+        .iter()
         .filter(|line| line.is_selected())
         .for_each(|line| result.push(line.clone().get_content()));
     result
