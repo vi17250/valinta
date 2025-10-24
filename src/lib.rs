@@ -16,7 +16,7 @@ pub mod multi_select {
     mod display;
     use crate::multi_select::display::display;
 
-    pub fn selection<T: Display + Debug + Clone>(things: &Vec<T>) -> Result<Vec<T>> {
+    pub fn selection<T: Display + Debug + Clone>(things: &[T]) -> Result<Vec<T>> {
         if things.is_empty() {
             return Err(Custom("Input is empty".into()));
         }
