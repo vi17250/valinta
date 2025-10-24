@@ -5,8 +5,10 @@
 ## Usage
 
 ```rust
-use valinta::multi_select::selection;
+use valinta;
+fn main() {
+    let lines: Vec<i32> = vec![1, 2, 3, 4];
+    let _: Vec<i32> = valinta::multi_select(&lines).unwrap();
+}
 
-let lines: Vec<i32> = vec![1,2,3,4];
-let selected: Vec<i32> = selection(lines);
 ```
