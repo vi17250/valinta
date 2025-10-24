@@ -1,6 +1,12 @@
-# Valinta 🟢
+# 🟢 Valinta
 
 > *Valinta* a simple Rust crate 🦀 for multiple selection in the terminal
+
+## Installation
+
+```bash
+cargo add --git https://github.com/vi17250/valinta
+```
 
 ## Usage
 
@@ -12,7 +18,7 @@ fn main() {
 }
 ```
 
-## With `result<T,E>`
+## With `Result<T,E>`
 ```rust
 use valinta::{ValintaError, multi_select};
 fn main() -> Result<(), ValintaError> {
