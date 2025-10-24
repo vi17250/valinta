@@ -27,3 +27,5 @@ fn main() -> Result<(), ValintaError> {
     Ok(())
 }
 ```
+![valinta_demo](https://github.com/user-attachments/assets/d8637e6d-6c7a-4952-a22b-21fe03886473)
+
