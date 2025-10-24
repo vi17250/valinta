@@ -4,6 +4,7 @@ use std::fmt::{Display, Formatter, Result};
 pub struct Line<T: Display + Clone> {
     content: T,
     is_selected: bool,
+    // number of lines : u8 ???
 }
 
 impl<T: Display + Clone> Line<T> {
