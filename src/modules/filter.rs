@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-use crate::multi_select::def::Line;
+use crate::modules::def::Line;
 
 pub fn filter<T: Display + Clone>(lines: &[Line<T>]) -> Vec<T> {
     let mut result: Vec<T> = Vec::new();
