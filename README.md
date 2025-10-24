@@ -12,7 +12,7 @@ fn main() {
 }
 ```
 
-# With `result<T,E>`
+## With `result<T,E>`
 ```rust
 use valinta::{ValintaError, multi_select};
 fn main() -> Result<(), ValintaError> {
