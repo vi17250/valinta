@@ -1,4 +1,6 @@
 use console::{Key, Term};
+use crossterm::execute;
+use crossterm::terminal::{DisableLineWrap, EnableLineWrap};
 use std::fmt::{Debug, Display};
 use std::process;
 
@@ -18,6 +20,9 @@ pub fn multi_select<T: Display + Debug + Clone>(things: &[T]) -> Result<Vec<T>> 
         .collect::<Vec<Line<_>>>();
 
     let mut current: usize = 0;
+
+    let mut out = std::io::stdout();
+    execute!(out, DisableLineWrap)?;
 
     let raw = std::env::args_os().any(|arg| arg == "-r" || arg == "--raw");
     let term = Term::stdout();
@@ -50,6 +55,9 @@ pub fn multi_select<T: Display + Debug + Clone>(things: &[T]) -> Result<Vec<T>> 
         let _ = term.move_cursor_up(lines.len());
         display(&lines, &current);
     }
+
+    execute!(out, EnableLineWrap)?;
+
     let result = filter(&lines);
     Ok(result)
 }
