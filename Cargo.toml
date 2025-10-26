@@ -5,4 +5,3 @@ edition = "2024"
 
 [dependencies]
 console = "0.16.1"
-crossterm = "0.29.0"
