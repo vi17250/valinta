@@ -21,7 +21,6 @@ pub fn multi_select<T: Display + Debug + Clone>(things: &[T]) -> Result<Vec<T>> 
 
     let raw = std::env::args_os().any(|arg| arg == "-r" || arg == "--raw");
     let term = Term::stdout();
-    let _ = term.clear_screen();
     display(&lines, &current);
     loop {
         let key = if raw {
@@ -48,7 +47,7 @@ pub fn multi_select<T: Display + Debug + Clone>(things: &[T]) -> Result<Vec<T>> 
             Key::Escape => process::exit(0),
             _ => (),
         }
-        let _ = term.clear_screen();
+        let _ = term.move_cursor_up(lines.len());
         display(&lines, &current);
     }
 
