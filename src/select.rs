@@ -2,7 +2,7 @@ use console::{Key, Term};
 use std::fmt::{Debug, Display};
 use std::process;
 
-use crate::def::Line;
+use crate::def::Option;
 use crate::display::display;
 use crate::error::{Result, ValintaError};
 use crate::filter::filter;
@@ -12,16 +12,17 @@ pub fn select<T: Display + Debug + Clone>(items: &[T]) -> Result<Vec<T>> {
         return Err(ValintaError::Custom("Input is empty".into()));
     }
 
-    let mut lines = items
+    let mut options = items
         .iter()
-        .map(|thing| Line::new(thing.clone()))
-        .collect::<Vec<Line<_>>>();
+        .enumerate()
+        .map(|(index, thing)| Option::new(thing.clone(), index == 0))
+        .collect::<Vec<Option<_>>>();
 
     let mut current: usize = 0;
 
     let raw = std::env::args_os().any(|arg| arg == "-r" || arg == "--raw");
     let term = Term::stdout();
-    display(&lines, &current);
+    display(&options, &current);
     loop {
         let key = if raw {
             term.read_key_raw()
@@ -35,11 +36,11 @@ pub fn select<T: Display + Debug + Clone>(items: &[T]) -> Result<Vec<T>> {
                 }
             }
             Key::ArrowDown => {
-                if current < lines.len() - 1 {
+                if current < options.len() - 1 {
                     current = current.saturating_add(1);
                 }
             }
-            Key::Char(' ') => lines
+            Key::Char(' ') => options
                 .get_mut(current)
                 .ok_or(ValintaError::Custom("Unexpected".into()))?
                 .toggle(),
@@ -47,11 +48,11 @@ pub fn select<T: Display + Debug + Clone>(items: &[T]) -> Result<Vec<T>> {
             Key::Escape => process::exit(0),
             _ => (),
         }
-        let _ = term.move_cursor_up(lines.len());
-        display(&lines, &current);
+        let _ = term.move_cursor_up(options.len());
+        display(&options, &current);
     }
 
-    let result = filter(&lines);
+    let result = filter(&options);
     Ok(result)
 }
 
