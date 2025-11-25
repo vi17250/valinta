@@ -7,12 +7,12 @@ use crate::display::display;
 use crate::error::{Result, ValintaError};
 use crate::filter::filter;
 
-pub fn select<T: Display + Debug + Clone>(things: &[T]) -> Result<Vec<T>> {
-    if things.is_empty() {
+pub fn select<T: Display + Debug + Clone>(items: &[T]) -> Result<Vec<T>> {
+    if items.is_empty() {
         return Err(ValintaError::Custom("Input is empty".into()));
     }
 
-    let mut lines = things
+    let mut lines = items
         .iter()
         .map(|thing| Line::new(thing.clone()))
         .collect::<Vec<Line<_>>>();
