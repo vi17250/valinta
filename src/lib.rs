@@ -1,3 +1,10 @@
-mod modules;
-pub use modules::error::ValintaError;
-pub use modules::multi_select::multi_select;
+// Internal modules
+mod def;
+mod display;
+mod filter;
+
+// Exposed and flattenned modules
+mod select; 
+mod error;
+pub use select::select;
+pub use error::ValintaError;

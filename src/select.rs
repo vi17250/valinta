@@ -2,12 +2,12 @@ use console::{Key, Term};
 use std::fmt::{Debug, Display};
 use std::process;
 
-use crate::modules::def::Line;
-use crate::modules::display::display;
-use crate::modules::error::{Result, ValintaError};
-use crate::modules::filter::filter;
+use crate::def::Line;
+use crate::display::display;
+use crate::error::{Result, ValintaError};
+use crate::filter::filter;
 
-pub fn multi_select<T: Display + Debug + Clone>(things: &[T]) -> Result<Vec<T>> {
+pub fn select<T: Display + Debug + Clone>(things: &[T]) -> Result<Vec<T>> {
     if things.is_empty() {
         return Err(ValintaError::Custom("Input is empty".into()));
     }
@@ -62,7 +62,7 @@ mod tests {
     #[test]
     fn it_throws_err() {
         let input: Vec<i32> = Vec::new();
-        let result = multi_select(&input);
+        let result = select(&input);
         assert!(result.is_err());
     }
 }
