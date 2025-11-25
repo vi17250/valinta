@@ -2,26 +2,36 @@ use console::{Key, Term};
 use std::fmt::{Debug, Display};
 use std::process;
 
-use crate::def::Line;
+use crate::def::Option;
 use crate::display::display;
 use crate::error::{Result, ValintaError};
 use crate::filter::filter;
 
-pub fn select<T: Display + Debug + Clone>(things: &[T]) -> Result<Vec<T>> {
-    if things.is_empty() {
+const NUMBER_TO_RENDER: u8 = 11;
+
+pub fn select<T: Display + Debug + Clone>(items: &[T]) -> Result<Vec<T>> {
+    if items.is_empty() {
         return Err(ValintaError::Custom("Input is empty".into()));
     }
 
-    let mut lines = things
+    let mut options = items
         .iter()
-        .map(|thing| Line::new(thing.clone()))
-        .collect::<Vec<Line<_>>>();
+        .enumerate()
+        .map(|(index, thing)| Option::new(thing.clone(), index == 0))
+        .collect::<Vec<Option<_>>>();
 
-    let mut current: usize = 0;
+    let mut current_position = if options.len() < NUMBER_TO_RENDER as usize {
+        0
+    } else {
+        options
+            .iter()
+            .position(|option| option.is_highlighted())
+            .unwrap()
+    };
 
     let raw = std::env::args_os().any(|arg| arg == "-r" || arg == "--raw");
     let term = Term::stdout();
-    display(&lines, &current);
+    display(&options, &current_position);
     loop {
         let key = if raw {
             term.read_key_raw()
@@ -30,28 +40,28 @@ pub fn select<T: Display + Debug + Clone>(things: &[T]) -> Result<Vec<T>> {
         }?;
         match key {
             Key::ArrowUp => {
-                if current > 0 {
-                    current = current.saturating_sub(1);
+                if current_position > 0 {
+                    current_position = current_position.saturating_sub(1);
                 }
             }
             Key::ArrowDown => {
-                if current < lines.len() - 1 {
-                    current = current.saturating_add(1);
+                if current_position < options.len() - 1 {
+                    current_position = current_position.saturating_add(1);
                 }
             }
-            Key::Char(' ') => lines
-                .get_mut(current)
+            Key::Char(' ') => options
+                .get_mut(current_position)
                 .ok_or(ValintaError::Custom("Unexpected".into()))?
                 .toggle(),
             Key::Enter => break,
             Key::Escape => process::exit(0),
             _ => (),
         }
-        let _ = term.move_cursor_up(lines.len());
-        display(&lines, &current);
+        let _ = term.move_cursor_up(options.len());
+        display(&options, &current_position);
     }
 
-    let result = filter(&lines);
+    let result = filter(&options);
     Ok(result)
 }
 

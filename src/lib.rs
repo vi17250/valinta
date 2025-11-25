@@ -1,3 +1,5 @@
+//! Easy and zero config multiselect in terminal
+
 // Internal modules
 mod def;
 mod display;
