@@ -12,7 +12,7 @@ pub type Returned<T> = (Vec<T>, Vec<usize>);
 
 const NUMBER_TO_RENDER: usize = 11;
 
-pub fn select<T: Display + Copy>(items: &[T]) -> Result<Returned<T>> {
+pub fn select<T: Display + Clone>(items: &[T]) -> Result<Returned<T>> {
     if items.is_empty() {
         return Err(ValintaError::Custom("Input is empty".into()));
     }
@@ -70,7 +70,7 @@ pub fn select<T: Display + Copy>(items: &[T]) -> Result<Returned<T>> {
             .enumerate()
             .fold((vec![], vec![]), |acc, (index, line)| {
                 if line.is_checked() {
-                    let content = *line.get_content();
+                    let content = line.get_content().clone();
                     let mut t1 = acc.0;
                     let mut t2 = acc.1;
                     t1.push(content);
