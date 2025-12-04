@@ -1,15 +1,16 @@
+use console::style;
 use std::fmt::{Display, Formatter, Result};
 
-#[derive(Debug, Copy, Clone)]
-pub struct Option<T: Display + Clone> {
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+pub struct Line<T: Display> {
     checked: bool,
     content: T,
     highlighted: bool,
 }
 
-impl<T: Display + Clone> Option<T> {
+impl<T: Display> Line<T> {
     pub fn new(content: T, highlighted: bool) -> Self {
-        Option {
+        Line {
             checked: false,
             content,
             highlighted,
@@ -17,39 +18,56 @@ impl<T: Display + Clone> Option<T> {
     }
 }
 
-impl<T: Display + Clone> Option<T> {
+impl<T: Display> Line<T> {
     pub fn is_checked(&self) -> bool {
         self.checked
     }
 }
 
-impl<T: Display + Clone> Option<T> {
+impl<T: Display> Line<T> {
     pub fn is_highlighted(&self) -> bool {
-        self.checked
+        self.highlighted
     }
 }
 
-impl<T: Display + Clone> Option<T> {
-    pub fn toggle(&mut self) {
+impl<T: Display> Line<T> {
+    pub fn toggle_highlight(&mut self)  {
+        self.highlighted = !self.highlighted
+    }
+}
+
+impl<T: Display> Line<T> {
+    pub fn toggle_check(&mut self) {
         self.checked = !self.checked
     }
 }
 
-impl<T: Display + Clone> Option<T> {
+impl<T: Display> Line<T> {
+    pub fn check(&mut self) {
+        self.checked = true
+    }
+}
+impl<T: Display> Line<T> {
+    pub fn uncheck(&mut self) {
+        self.checked = false
+    }
+}
+
+impl<T: Display + Clone> Line<T> {
     pub fn get_content(self) -> T {
         self.content.clone()
     }
 }
 
-impl<T: Display + Clone> Display for Option<T> {
+impl<T: Display> Display for Line<T> {
     fn fmt(&self, f: &mut Formatter) -> Result {
-        let checked = String::from("[x]");
-        let unchecked = String::from("[ ]");
-        let content = &self.content;
-        if self.checked {
-            write!(f, "{:<2} {}", checked, content)
+        let checkbox = if self.is_checked() { "[x]" } else { "[ ]" };
+        if self.is_highlighted() {
+            let content = format!("{} {}", checkbox, self.content);
+            // let content =;
+            write!(f, "{}", style(content).on_green())
         } else {
-            write!(f, "{:<2} {}", unchecked, content)
+            write!(f, "{} {}", checkbox, self.content)
         }
     }
 }

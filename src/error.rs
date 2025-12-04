@@ -6,6 +6,7 @@ pub type Result<T> = std::result::Result<T, ValintaError>;
 pub enum ValintaError {
     Custom(String),
     IoError(io::Error),
+    TerminalSizeNotFound
 }
 
 impl core::fmt::Display for ValintaError {
@@ -16,8 +17,3 @@ impl core::fmt::Display for ValintaError {
 
 impl std::error::Error for ValintaError {}
 
-impl From<io::Error> for ValintaError {
-    fn from(err: io::Error) -> Self {
-        ValintaError::IoError(err)
-    }
-}

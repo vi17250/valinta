@@ -2,8 +2,9 @@
 
 // Internal modules
 mod def;
-mod display;
-mod filter;
+mod terminal;
+mod utils;
+mod usekey;
 
 // Exposed and flattenned modules
 mod select; 
