@@ -1,4 +1,3 @@
-use console::style;
 use std::fmt::{Display, Formatter, Result};
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
@@ -62,12 +61,6 @@ impl<T: Display + Clone> Line<T> {
 impl<T: Display> Display for Line<T> {
     fn fmt(&self, f: &mut Formatter) -> Result {
         let checkbox = if self.is_checked() { "[x]" } else { "[ ]" };
-        if self.is_highlighted() {
-            let content = format!("{} {}", checkbox, self.content);
-            // let content =;
-            write!(f, "{}", style(content).on_green())
-        } else {
-            write!(f, "{} {}", checkbox, self.content)
-        }
+        write!(f, "{} {}", checkbox, self.content)
     }
 }
