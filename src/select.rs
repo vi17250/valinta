@@ -25,7 +25,7 @@ pub fn select<T: Display + Clone>(items: &[T]) -> Result<Returned<T>> {
 
     let mut current_position = 0;
 
-    let mut rendered_options = array(&lines, Some(current_position), None);
+    let mut rendered_options = array(&lines, Some(current_position), Some(NUMBER_TO_RENDER));
     display(&rendered_options);
 
     let raw = std::env::args_os().any(|arg| arg == "-r" || arg == "--raw");
@@ -52,14 +52,19 @@ pub fn select<T: Display + Clone>(items: &[T]) -> Result<Returned<T>> {
         };
 
         let terminal_width = get_width()?;
-        rendered_options = array(&lines, Some(current_position), None);
+
+        //   currentPosition = options.length < numberToRender
+        //   ? 0
+        //   : options.findIndex((option) => option.highlighted);
+
+        rendered_options = array(&lines, Some(current_position), Some(NUMBER_TO_RENDER));
 
         let rendered_lines = rendered_options.iter().fold(0, |acc, option| {
             let current_lines = number_of_lines(option, terminal_width);
             acc + current_lines
         });
 
-        let _ = term.move_cursor_up(rendered_lines);
+        let _ = term.move_cursor_up(rendered_lines );
         let _ = term.clear_to_end_of_screen();
         display(&rendered_options);
     }
