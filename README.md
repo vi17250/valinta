@@ -83,5 +83,4 @@ A tupple which include the selected data and the indexes of selected data
 ```rust
 pub type Returned<T> = (Vec<T>, Vec<usize>);
 ```
-
-![valinta_demo](https://github.com/user-attachments/assets/d8637e6d-6c7a-4952-a22b-21fe03886473)
+![valinta-demo](https://github.com/user-attachments/assets/3e948218-79ca-4ee6-bbbf-11d69c5261f8)
