@@ -12,9 +12,13 @@ pub type Returned<T> = (Vec<T>, Vec<usize>);
 
 const NUMBER_TO_RENDER: usize = 11;
 
+/// `select` is the main function of this crate
+/// 
+/// This function orchestrate the entier logic of this crate
+/// It's not recommened to use it dry
 pub fn select<T: Display + Clone>(items: &[T]) -> Result<Returned<T>> {
     if items.is_empty() {
-        return Err(ValintaError::Custom("Input is empty".into()));
+        return Err(ValintaError::ItemsCannotBeEmpty);
     }
 
     let mut lines = items

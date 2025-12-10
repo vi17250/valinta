@@ -2,10 +2,14 @@ use std::io;
 
 pub type Result<T> = std::result::Result<T, ValintaError>;
 
+/// Errors for this crate
 #[derive(Debug)]
 pub enum ValintaError {
-    Custom(String),
+    /// Items cannot be empty
+    ItemsCannotBeEmpty,
+    /// The standard IO Error
     IoError(io::Error),
+    /// Unable to find current shell width 
     TerminalSizeNotFound
 }
 
