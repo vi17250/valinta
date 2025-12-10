@@ -30,7 +30,7 @@ impl<T: Display> Line<T> {
 }
 
 impl<T: Display> Line<T> {
-    pub fn toggle_highlight(&mut self)  {
+    pub fn toggle_highlight(&mut self) {
         self.highlighted = !self.highlighted
     }
 }
