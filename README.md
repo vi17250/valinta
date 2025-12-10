@@ -1,4 +1,4 @@
-# 🟢 Valinta
+# [x] Valinta
 
 > *Valinta* a zero config Rust crate 🦀 for multiple selection in the terminal
 
