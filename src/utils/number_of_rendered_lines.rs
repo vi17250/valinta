@@ -2,7 +2,19 @@
 
 use unicode_width::UnicodeWidthStr;
 
-pub fn number_of_lines<T: std::fmt::Display>(content: &T, max_width: u16) -> usize {
+use crate::def::Line;
+
+pub fn number_of_rendered_lines<T: std::fmt::Display>(
+    rendered_lines: &[Line<T>],
+    terminal_width: u16,
+) -> usize {
+    rendered_lines.iter().fold(0, |acc, option| {
+        let current_lines = number_of_lines(option, terminal_width);
+        acc + current_lines
+    })
+}
+
+fn number_of_lines<T: std::fmt::Display>(content: &T, max_width: u16) -> usize {
     let value = content.to_string();
     value.split("\n").fold(0, |acc, val| {
         let len = val.width() / max_width as usize + 1;
