@@ -7,3 +7,6 @@ edition = "2024"
 console = "0.16.1"
 crossterm = "0.29.0"
 unicode-width = "0.2.2"
+
+[lib]
+doctest = false  
