@@ -2,7 +2,11 @@
 
 > _Valinta_ a zero config Rust crate 🦀 for multiple selection in the terminal
 
-# Usage
+# 🎞️ Example
+
+![valinta-demo](https://github.com/user-attachments/assets/3e948218-79ca-4ee6-bbbf-11d69c5261f8)
+
+# 📚 Usage
 
 ## First: add this crate to your project
 
@@ -63,7 +67,7 @@ fn main() -> Result<(), ValintaError> {
 }
 ```
 
-# User interactions
+# 👩‍💻 User interactions
 
 | _key pressed_  | Action            |
 | -------------- | ----------------- |
@@ -76,11 +80,10 @@ fn main() -> Result<(), ValintaError> {
 | _enter_        | Confirm selection |
 | _esc_          | Break             |
 
-# Returned type
+# 🪇 Returned type
 
-A tupple which include the selected data and the indexes of selected data
+A tupple which include the selected items and the indexes of selected data
 
 ```rust
 pub type Returned<T> = (Vec<T>, Vec<usize>);
 ```
-![valinta-demo](https://github.com/user-attachments/assets/3e948218-79ca-4ee6-bbbf-11d69c5261f8)
