@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0](https://github.com/vi17250/valinta/compare/v0.1.0...v0.2.0) - 2025-12-29
+
+### Added
+
+- [**breaking**] 🎸 Move cursor
+
+### Fixed
+
+- 🐛 the current item is preceded by an arrow
+
+### Other
+
+- Replace example image in README
+- Update demo image in README.md
+- 💡 number of rendered lines accept generic: &[T]
+- release v0.1.0
+
 ## [0.1.0](https://github.com/vi17250/valinta/releases/tag/v0.1.0) - 2025-12-11
 
 ### Added
