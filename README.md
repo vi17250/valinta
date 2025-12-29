@@ -4,7 +4,7 @@
 
 # 🎞️ Example
 
-![valinta](https://github.com/user-attachments/assets/67ba19eb-1c1e-414a-887e-4cf7ecdd303b)
+![valinta](https://github.com/user-attachments/assets/95f34d19-7440-4691-a59d-67d64272e090)
 
 # 📚 Usage
 
