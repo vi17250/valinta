@@ -2,10 +2,8 @@
 
 use unicode_width::UnicodeWidthStr;
 
-use crate::def::Line;
-
 pub fn number_of_rendered_lines<T: std::fmt::Display>(
-    rendered_lines: &[Line<T>],
+    rendered_lines: &[T],
     terminal_width: u16,
 ) -> usize {
     rendered_lines.iter().fold(0, |acc, option| {
@@ -25,6 +23,54 @@ fn number_of_lines<T: std::fmt::Display>(content: &T, max_width: u16) -> usize {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn it_returns_one_and_one() {
+        // Given
+        let content = vec!["Line 1","Line 2"];
+
+        // When
+        let lines = number_of_rendered_lines(&content, 16);
+
+        // Then
+        assert_eq!(lines, 2);
+    }
+
+    #[test]
+    fn it_returns_one_and_two() {
+        // Given
+        let content = vec!["Line 1","First line\nOther line"];
+
+        // When
+        let lines = number_of_rendered_lines(&content, 16);
+
+        // Then
+        assert_eq!(lines, 3);
+    }
+
+    #[test]
+    fn it_returns_one_and_four() {
+        // Given
+        let content = ["One line", "14 char length\n14 char length"];
+
+        // When
+        let lines = number_of_rendered_lines(&content, 10);
+
+        // Then
+        assert_eq!(lines, 5);
+    }
+
+    #[test]
+    fn it_returns_lines_when_inputs_are_integer() {
+        // Given
+        let content = vec![10,1000];
+
+        // When
+        let lines = number_of_rendered_lines(&content, 3);
+
+        // Then
+        assert_eq!(lines, 3);
+    }
 
     #[test]
     fn it_returns_one() {
