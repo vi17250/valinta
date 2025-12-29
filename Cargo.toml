@@ -1,6 +1,6 @@
 [package]
 name = "valinta"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 authors = ["Victor Aubinaud"]
 description = "Valinta a zero config Rust crate 🦀 for multiple selection in the terminal"
